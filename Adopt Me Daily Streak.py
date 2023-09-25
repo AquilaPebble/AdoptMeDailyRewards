@@ -20,10 +20,10 @@ class Reward:
         self.Amount = 0
 class SystemFunctions:
     @staticmethod
-    def findTotal(dailyStreak:int,dailyLoginRewards:list):
+    def findTotal(dailyStreak:int):
         collected = []
         for i in range(0,dailyStreak):
-            collected.append(dailyLoginRewards[i%len(dailyLoginRewards)])
+            collected.append(DailyRewards.dailyLoginRewards[i%len(DailyRewards.dailyLoginRewards)])
         return collected
     @staticmethod
     def findSum(inputList:list):
@@ -32,7 +32,7 @@ class SystemFunctions:
             if type(i) == int:
                 totalPrice += i
             elif type(i) == Reward:
-                i.amount += 1
+                i.Amount += 1
         return totalPrice
 class DailyRewards:
     smallGift = Reward("Small Gift")
@@ -48,6 +48,7 @@ class Main:
     def main():
         while True:
             [i.resetAmount() for i in (DailyRewards.smallGift,DailyRewards.mediumGift,DailyRewards.bigGift,DailyRewards.massiveGift,DailyRewards.petwearChest,DailyRewards.regalPetwearChest,DailyRewards.crackedEgg)]
-            totalSum = f" $ {SystemFunctions.findSum(SystemFunctions.findTotal(int(input('Daily login streak: ')),DailyRewards.dailyLoginRewards))}"
-            for i in [totalSum,[o for o in (DailyRewards.smallGift,DailyRewards.mediumGift,DailyRewards.bigGift,DailyRewards.massiveGift,DailyRewards.petwearChest,DailyRewards.regalPetwearChest,DailyRewards.crackedEgg) if o.amount != 0]]:
+            totalSum = f" $ {SystemFunctions.findSum(SystemFunctions.findTotal(int(input('Daily login streak: '))))}"
+            for i in [totalSum,[o for o in (DailyRewards.smallGift,DailyRewards.mediumGift,DailyRewards.bigGift,DailyRewards.massiveGift,DailyRewards.petwearChest,DailyRewards.regalPetwearChest,DailyRewards.crackedEgg) if o.Amount != 0]]:
                 print(i)
+Main.main()
